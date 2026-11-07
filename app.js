@@ -3,6 +3,39 @@ const skipIntro = document.querySelector('#skip-intro');
 const replay = document.querySelector('#replay');
 const page = document.querySelectorAll('body > a, body > header, body > main, body > footer');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const motionToggle = document.querySelector('#motion-toggle');
+const motionKey = 'daico-motion-opt-in';
+let motionOptIn = false;
+try {
+  motionOptIn = sessionStorage.getItem(motionKey) === 'on';
+} catch {
+  // The control still works for this page when storage is unavailable.
+}
+
+function motionIsReduced() {
+  return reducedMotion.matches && !motionOptIn;
+}
+
+function renderMotionPreference() {
+  document.documentElement.dataset.motion = motionOptIn ? 'on' : 'auto';
+  motionToggle.hidden = !reducedMotion.matches;
+  motionToggle.textContent = motionOptIn ? 'Disable motion' : 'Enable motion';
+  window.dispatchEvent(new Event('daico:motionchange'));
+}
+
+motionToggle.addEventListener('click', () => {
+  motionOptIn = !motionOptIn;
+  try {
+    if (motionOptIn) sessionStorage.setItem(motionKey, 'on');
+    else sessionStorage.removeItem(motionKey);
+  } catch {
+    // Keep the current preference in memory.
+  }
+  renderMotionPreference();
+});
+reducedMotion.addEventListener('change', renderMotionPreference);
+renderMotionPreference();
+
 let introTimer;
 let fadeTimer;
 let returnFocus;
@@ -22,13 +55,13 @@ function startIntro(trigger) {
   page.forEach((element) => { element.inert = true; });
   if (trigger) skipIntro.focus({ preventScroll: true });
   introTimer = setTimeout(() => {
-    if (reducedMotion.matches) {
+    if (motionIsReduced()) {
       finishIntro();
       return;
     }
     intro.classList.add('exiting');
     fadeTimer = setTimeout(finishIntro, 340);
-  }, reducedMotion.matches ? 900 : 1740);
+  }, motionIsReduced() ? 900 : 1740);
 }
 
 skipIntro.addEventListener('click', () => {
@@ -173,4 +206,4 @@ try {
   // Start signed out when browser storage is unavailable.
 }
 if (hasSession) showDashboard(true);
-else if (!reducedMotion.matches && !location.hash) startIntro();
+else if (!motionIsReduced() && !location.hash) startIntro();

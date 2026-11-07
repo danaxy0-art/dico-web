@@ -8,25 +8,53 @@ const heroCore = hero.querySelector('.hero-core');
 const story = document.querySelector('#signal');
 const signalProgress = document.querySelector('#signal-progress');
 
+let activeTouch;
+let resetTimer;
+
+function resetCore() {
+  clearTimeout(resetTimer);
+  ['--core-y', '--core-x', '--eye-x'].forEach((property) => heroCore.style.removeProperty(property));
+}
+
 function trackCore(event) {
-  if (reducedMotion.matches || event.pointerType === 'touch') return;
-  const bounds = hero.getBoundingClientRect();
-  const x = ((event.clientX - bounds.left) / bounds.width - .5) * 2;
-  const y = ((event.clientY - bounds.top) / bounds.height - .5) * 2;
+  if (motionIsReduced()) return;
+  const touch = event.pointerType === 'touch';
+  if (touch && activeTouch !== event.pointerId) return;
+  clearTimeout(resetTimer);
+
+  const bounds = (touch ? heroCore : hero).getBoundingClientRect();
+  const clamp = (value) => Math.max(-1, Math.min(1, value));
+  const x = clamp(((event.clientX - bounds.left) / bounds.width - .5) * 2);
+  const y = clamp(((event.clientY - bounds.top) / bounds.height - .5) * 2);
   heroCore.style.setProperty('--core-y', `${x * 35 - 12}deg`);
   heroCore.style.setProperty('--core-x', `${y * -26 - 11}deg`);
   heroCore.style.setProperty('--eye-x', `${x * 9}px`);
 }
 
+heroCore.addEventListener('pointerdown', (event) => {
+  if (event.pointerType !== 'touch' || !event.isPrimary || motionIsReduced()) return;
+  activeTouch = event.pointerId;
+  trackCore(event);
+});
 hero.addEventListener('pointermove', trackCore);
-hero.addEventListener('pointerleave', () => {
-  ['--core-y', '--core-x', '--eye-x'].forEach((property) => heroCore.style.removeProperty(property));
+hero.addEventListener('pointerleave', (event) => {
+  if (event.pointerType !== 'touch') resetCore();
+});
+heroCore.addEventListener('pointerup', (event) => {
+  if (activeTouch !== event.pointerId) return;
+  activeTouch = undefined;
+  resetTimer = setTimeout(resetCore, 650);
+});
+heroCore.addEventListener('pointercancel', (event) => {
+  if (activeTouch !== event.pointerId) return;
+  activeTouch = undefined;
+  resetCore();
 });
 
 let frameRequest;
 function updateSignal() {
   frameRequest = undefined;
-  if (reducedMotion.matches || story.offsetHeight === 0) return;
+  if (motionIsReduced() || story.offsetHeight === 0) return;
 
   const bounds = story.getBoundingClientRect();
   const viewport = window.innerHeight;
@@ -44,5 +72,11 @@ function requestSignalUpdate() {
 }
 window.addEventListener('scroll', requestSignalUpdate, { passive: true });
 window.addEventListener('resize', requestSignalUpdate);
-reducedMotion.addEventListener('change', requestSignalUpdate);
+window.addEventListener('daico:motionchange', () => {
+  if (motionIsReduced()) {
+    activeTouch = undefined;
+    resetCore();
+  }
+  requestSignalUpdate();
+});
 requestSignalUpdate();

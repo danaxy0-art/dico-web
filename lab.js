@@ -116,7 +116,7 @@ lock.addEventListener('click', () => {
   renderScope();
   renderSignalLog();
   feedback.textContent = `Signal locked. Your DAICO Core is now set to ${channel.title}.`;
-  if (!reducedMotion.matches && typeof scope.animate === 'function') {
+  if (!motionIsReduced() && typeof scope.animate === 'function') {
     scope.animate([{ boxShadow: '0 0 0 0 var(--lab-accent)' }, { boxShadow: '0 0 0 12px transparent' }], 420);
   }
 });
