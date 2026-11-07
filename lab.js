@@ -19,6 +19,7 @@ const dashboardSignalCount = document.querySelector('#dashboard-signal-count');
 const signalLog = document.querySelectorAll('[data-signal-log]');
 const coreProfile = document.querySelector('#core-profile');
 const labRecommendation = document.querySelector('#lab-recommendation');
+const matchesLink = document.querySelector('#lab-matches-link');
 const signalKey = 'daico-locked-signals';
 let lockedSignals = new Set();
 
@@ -68,6 +69,12 @@ function renderScope() {
   const channel = signalChannels[selectedChannel];
   const hertz = Number(frequency.value);
   const matched = hertz === channel.target;
+  const recommendedChannel = Math.abs(hertz - channel.target) <= 2 ? selectedChannel : '';
+  matchesLink.hidden = !recommendedChannel;
+  if (lab.dataset.recommendedChannel !== recommendedChannel) {
+    lab.dataset.recommendedChannel = recommendedChannel;
+    lab.dispatchEvent(new Event('daico:recommendations'));
+  }
   const unlocked = lockedSignals.has(selectedChannel);
   const isLocked = matched && unlocked;
   labRecommendation.hidden = !unlocked;

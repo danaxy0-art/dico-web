@@ -206,5 +206,6 @@ try {
 } catch {
   // Start signed out when browser storage is unavailable.
 }
-if (hasSession) showDashboard(true);
+const publicSection = ['#public-events', '#signal-lab', '#signal-recommendations'].includes(location.hash);
+if (hasSession && !publicSection && !location.hash.startsWith('#event-')) showDashboard(true);
 else if (!motionIsReduced() && !location.hash) startIntro();

@@ -4,13 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f4eee2">
-<meta name="description" content="The DAICO Society landing page and interactive demo dashboard.">
-<title>DAICO Society</title>
+<meta name="description" content="Explore workshops, sessions, bootcamps, and meetups from DAICO Society.">
+<title>DAICO Society Events</title>
 <link rel="icon" href="./mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="./style.css">
 <script src="./app.js" defer></script>
 <script src="./motion.js" defer></script>
 <script src="./lab.js" defer></script>
+<script src="./events.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -21,25 +22,27 @@
   </div>
   <button class="intro-skip" id="skip-intro" type="button">Skip intro <span aria-hidden="true">→</span></button>
 </div>
-<header class="shell nav">
-  <a href="./" class="brand" aria-label="DAICO Society home" dir="ltr"><img src="./mark.svg" width="34" height="34" alt=""><span>DAICO <small>SOCIETY</small></span></a>
-  <div class="nav-actions">
-    <button class="quiet" id="motion-toggle" type="button" hidden>Enable motion</button>
-    <button class="quiet" id="sign-out" type="button" hidden>Sign out <span aria-hidden="true">↗</span></button>
-    <button class="quiet" id="replay" type="button"><span aria-hidden="true">↺</span> Replay intro</button>
+<header class="site-header">
+  <div class="shell nav">
+    <a href="./" class="brand" aria-label="DAICO Society home"><img src="./daico-wordmark.svg" alt=""></a>
+    <div class="nav-actions">
+      <a class="quiet public-events-link" href="#public-events">Events</a>
+      <button class="quiet" id="motion-toggle" type="button" hidden>Enable motion</button>
+      <button class="quiet" id="sign-out" type="button" hidden>Sign out <span aria-hidden="true">↗</span></button>
+      <button class="quiet" id="replay" type="button"><span aria-hidden="true">↺</span> Replay intro</button>
+    </div>
   </div>
 </header>
 <main id="main" class="shell" tabindex="-1">
   <div id="landing">
     <section class="hero" id="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="scene-label"><span></span> DAICO SOCIETY / 01</p>
-        <h1 id="hero-title">DAICO<span>Society.</span></h1>
-        <p class="hero-description">Explore projects, workshops, and the DAICO member workspace.</p>
+        <p class="scene-label"><span></span> DAICO SOCIETY / PUBLIC EVENTS</p>
+        <h1 id="hero-title">Find your<span>next event.</span></h1>
+        <p class="hero-description">Explore workshops, talks, and bootcamps in AI and data science. Open to anyone interested.</p>
         <div class="hero-actions">
-          <a class="hero-link hero-lab" href="#signal-lab">Enter Signal Lab <span aria-hidden="true">↗</span></a>
-          <a class="hero-link" href="#signal">Explore DAICO <span aria-hidden="true">↓</span></a>
-          <button class="hero-link hero-login" type="button" data-open-login aria-haspopup="dialog" aria-controls="login">Member sign in <span aria-hidden="true">↗</span></button>
+          <a class="hero-link hero-lab" href="#public-events">Browse events <span aria-hidden="true">↓</span></a>
+          <a class="hero-link" href="#signal-lab">Enter Signal Lab <span aria-hidden="true">↗</span></a>
         </div>
       </div>
       <div class="core-stage hero-core" aria-hidden="true">
@@ -48,6 +51,31 @@
         <div class="core-mesh" data-core></div>
         <span class="core-index core-axis">X / Y / Z</span>
       </div>
+    </section>
+
+    <section class="public-events shell" id="public-events" aria-labelledby="public-events-title">
+      <header class="events-heading">
+        <div>
+          <p class="scene-label"><span></span> DAICO / PROGRAM</p>
+          <h2 id="public-events-title" tabindex="-1">Explore events.</h2>
+        </div>
+        <p>Find an event that fits your interests. Browse the program and open an event to see what to expect.</p>
+      </header>
+      <div class="program-notice"><strong>Program preview</strong><span>Sample events and demo registration.</span></div>
+      <div class="event-controls">
+        <fieldset class="event-filters">
+          <legend>Filter by event type</legend>
+          <label><input type="radio" name="event-type" value="all" checked><span>All events</span></label>
+          <label><input type="radio" name="event-type" value="workshop"><span>Workshops</span></label>
+          <label><input type="radio" name="event-type" value="session"><span>Sessions</span></label>
+          <label><input type="radio" name="event-type" value="bootcamp"><span>Bootcamps</span></label>
+          <label><input type="radio" name="event-type" value="meetup"><span>Meetups</span></label>
+        </fieldset>
+        <label class="event-search">Search events<input id="event-search" type="search" placeholder="Try AI or Python"></label>
+      </div>
+      <p class="event-result" id="event-result" role="status"></p>
+      <div class="event-grid" id="event-grid"></div>
+      <p class="event-empty" id="event-empty" hidden>No events match your search. Try another keyword or event type.</p>
     </section>
 
     <section class="signal-story" id="signal" aria-label="Explore the DAICO workspace">
@@ -80,7 +108,7 @@
         <article class="signal-scene">
           <p class="scene-label"><span></span> 03 / EVENTS</p>
           <h2>Find a session.</h2>
-          <p>Explore a motion workshop or a build night, and try joining one in the demo.</p>
+          <p>Find workshops, sessions, and bootcamps in the public event catalog.</p>
         </article>
         <article class="signal-scene">
           <p class="scene-label"><span></span> 04 / WORKSPACE</p>
@@ -98,7 +126,7 @@
             <p class="scene-label"><span></span> 05 / INTERACTIVE</p>
             <h2 id="lab-title">Signal Lab<span>.</span></h2>
           </div>
-          <p>Choose what you’re into, tune its frequency, and lock the signal. Your DAICO Core takes on that interest’s color and points you to a related project or event.</p>
+          <p>Choose an interest and tune toward its target frequency to discover matching events. Lock the signal if you want to keep your DAICO Core in that color.</p>
         </header>
         <div class="lab-console">
           <div class="lab-controls">
@@ -119,6 +147,7 @@
               <span id="signal-count">0 / 3 locked</span>
             </div>
             <p class="lab-feedback" id="signal-feedback" role="status"></p>
+            <a class="interest-shortcut lab-shortcut" id="lab-matches-link" href="#signal-recommendations" hidden>See matching events <span aria-hidden="true">↓</span></a>
             <button class="interest-shortcut lab-shortcut" id="lab-recommendation" type="button" data-open-login aria-haspopup="dialog" aria-controls="login" hidden></button>
           </div>
           <div class="lab-scope">
@@ -135,12 +164,23 @@
             <div class="lab-scope-bottom"><span><i></i> LIVE SIGNAL</span><span><i></i> TARGET</span></div>
           </div>
         </div>
+        <section class="signal-recommendations" id="signal-recommendations" aria-labelledby="signal-recommendations-title">
+          <header class="signal-recommendations-heading">
+            <div>
+              <p class="scene-label"><span></span> PROGRAM PREVIEW / EVENT MATCHES</p>
+              <h3 id="signal-recommendations-title" tabindex="-1">Recommended for you</h3>
+            </div>
+            <a href="#public-events">Browse all events <span aria-hidden="true">↗</span></a>
+          </header>
+          <p id="signal-event-summary" class="signal-event-summary" role="status">Tune within 2 Hz of your target to see matching events.</p>
+          <div class="event-grid" id="signal-event-grid"></div>
+        </section>
       </div>
     </section>
 
     <section class="entry" aria-labelledby="access-title">
       <div class="access-info">
-        <h2 id="access-title">06 / ACCESS</h2>
+        <h2 id="access-title">06 / MEMBER AREA</h2>
         <p class="access-status"><span class="status-dot" aria-hidden="true"></span>Demo session ready</p>
       </div>
       <div class="access-console">
@@ -223,6 +263,28 @@
   </section>
 </main>
 <footer class="shell footer"><span>DAICO SOCIETY</span><span>FRONT-END DEMO</span></footer>
+
+<dialog id="event-dialog" class="event-dialog" aria-labelledby="event-dialog-title">
+  <button class="event-close" id="event-close" type="button" aria-label="Close event details">×</button>
+  <div class="event-dialog-content">
+    <p class="scene-label event-dialog-label"><span></span><span id="event-dialog-type"></span></p>
+    <h2 id="event-dialog-title"></h2>
+    <p id="event-dialog-description"></p>
+    <dl class="event-facts">
+      <div><dt>Format</dt><dd id="event-dialog-format"></dd></div>
+      <div><dt>Duration</dt><dd id="event-dialog-duration"></dd></div>
+      <div><dt>Level</dt><dd id="event-dialog-level"></dd></div>
+      <div><dt>Schedule</dt><dd>Sample event · no scheduled date</dd></div>
+    </dl>
+    <h3>What to expect</h3>
+    <ul id="event-dialog-agenda"></ul>
+    <div class="event-register">
+      <p>This is a demo RSVP. Your choice is saved on this device.</p>
+      <button class="event-rsvp" id="event-rsvp" type="button">Try registration</button>
+      <p class="event-rsvp-status" id="event-rsvp-status" role="status"></p>
+    </div>
+  </div>
+</dialog>
 
 <dialog id="login" aria-labelledby="login-title">
   <div class="console-bar dialog-bar">
