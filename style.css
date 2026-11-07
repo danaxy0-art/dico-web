@@ -20,7 +20,6 @@
 }
 *, *::before, *::after { box-sizing: border-box; }
 body { margin: 0; }
-body:has(.intro:not([hidden])) { overflow: hidden; }
 [hidden] { display: none !important; }
 button, input { font: inherit; }
 button { cursor: pointer; }
@@ -88,20 +87,6 @@ a { color: inherit; text-decoration: none; }
 .console-arrow { color: var(--orange); font-size: 1.16rem; }
 .footer { border-top: 1px solid var(--ink); padding-block: 18px 24px; color: var(--ink-light); font-size: .79rem; }
 .footer [lang="en"] { font: 700 .66rem var(--mono); letter-spacing: .12em; }
-.intro { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; background: #793542; color: var(--paper); }
-.intro-brand { max-width: 88vw; text-align: center; }
-.intro-letters { display: flex; justify-content: center; gap: .025em; font: 900 clamp(3.1rem, 19vw, 12rem)/.84 Arial, sans-serif; letter-spacing: -.085em; }
-.intro-letters span { animation: arrive .52s cubic-bezier(.2,.7,.25,1.3) both; }
-.intro-letters span:nth-child(2) { color: var(--brand-turquoise); animation-delay: .09s; }
-.intro-letters span:nth-child(3) { color: var(--orange); animation-delay: .18s; }
-.intro-letters span:nth-child(4) { animation-delay: .27s; }
-.intro-letters span:nth-child(5) { color: var(--brand-coral); animation-delay: .36s; }
-.intro-sub { display: block; margin-top: 17px; font: 700 clamp(.65rem, 1.5vw, 1rem) var(--mono); letter-spacing: .45em; animation: arrive .45s .5s both; }
-.intro-skip { position: absolute; bottom: max(28px, env(safe-area-inset-bottom)); border: 1px solid #ffffff69; border-radius: 3px; background: transparent; color: var(--paper); padding: 9px 16px; }
-.intro-skip span { margin-inline-start: 6px; color: #8eddd0; }
-.intro.exiting { animation: intro-out .34s ease-in forwards; }
-@keyframes arrive { from { opacity: 0; transform: translateY(.55em) rotate(-12deg); } }
-@keyframes intro-out { to { clip-path: inset(0 0 100% 0); } }
 #login {
   position: fixed;
   width: min(440px, calc(100% - 32px));
@@ -411,7 +396,7 @@ main:has(#landing:not([hidden])) { width: 100%; }
 .hero-core::after { content: ''; position: absolute; z-index: -1; width: 56%; height: 9%; bottom: 9%; border-radius: 50%; background: #3b0e24; opacity: .5; filter: blur(12px); }
 .core-index { position: absolute; top: 4%; left: 3%; font: 700 .69rem var(--mono); letter-spacing: .12em; }
 .core-axis { inset: auto 3% 4% auto; }
-body:not(:has(.intro:not([hidden]))) .hero-core .core-assembly { animation: core-arrive .85s cubic-bezier(.24,.8,.3,1) both; }
+.hero-core .core-assembly { animation: core-arrive .85s cubic-bezier(.24,.8,.3,1) both; }
 @keyframes core-arrive { from { transform: translateY(32px) rotateY(-42deg) scale(.72); } }
 
 .signal-core {

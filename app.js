@@ -1,5 +1,3 @@
-const intro = document.querySelector('#intro');
-const page = document.querySelectorAll('body > a, body > header, body > main, body > footer');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const motionToggle = document.querySelector('#motion-toggle');
 const motionKey = 'daico-motion-opt-in';
@@ -33,43 +31,6 @@ motionToggle.addEventListener('click', () => {
 });
 reducedMotion.addEventListener('change', renderMotionPreference);
 renderMotionPreference();
-
-let introTimer;
-let fadeTimer;
-let returnFocus;
-
-function finishIntro() {
-  clearTimeout(introTimer);
-  clearTimeout(fadeTimer);
-  intro.hidden = true;
-  intro.classList.remove('exiting');
-  page.forEach((element) => { element.inert = false; });
-  if (returnFocus) returnFocus.focus({ preventScroll: true });
-}
-
-function startIntro(trigger) {
-  returnFocus = trigger;
-  intro.hidden = false;
-  page.forEach((element) => { element.inert = true; });
-  if (trigger) skipIntro.focus({ preventScroll: true });
-  introTimer = setTimeout(() => {
-    if (motionIsReduced()) {
-      finishIntro();
-      return;
-    }
-    intro.classList.add('exiting');
-    fadeTimer = setTimeout(finishIntro, 340);
-  }, motionIsReduced() ? 900 : 1740);
-}
-
-skipIntro.addEventListener('click', () => {
-  returnFocus ??= document.querySelector('.brand');
-  finishIntro();
-});
-replay.addEventListener('click', () => startIntro(replay));
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && !intro.hidden) skipIntro.click();
-});
 
 const login = document.querySelector('#login');
 const password = document.querySelector('#demo-password');
@@ -127,7 +88,6 @@ function renderChoices() {
 function showDashboard(active) {
   landing.hidden = active;
   dashboard.hidden = !active;
-  replay.hidden = active;
   signOut.hidden = !active;
 
   if (active) {
@@ -206,4 +166,3 @@ try {
 }
 const publicSection = ['#public-events', '#signal-lab', '#signal-recommendations'].includes(location.hash);
 if (hasSession && !publicSection && !location.hash.startsWith('#event-')) showDashboard(true);
-else if (!motionIsReduced() && !location.hash) startIntro();
