@@ -1,6 +1,4 @@
 const intro = document.querySelector('#intro');
-const skipIntro = document.querySelector('#skip-intro');
-const replay = document.querySelector('#replay');
 const page = document.querySelectorAll('body > a, body > header, body > main, body > footer');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const motionToggle = document.querySelector('#motion-toggle');
