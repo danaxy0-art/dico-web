@@ -463,34 +463,34 @@ body:not(:has(.intro:not([hidden]))) .hero-core .core-assembly { animation: core
 }
 
 :root[data-active-signal="ai"], .lab[data-channel="ai"] {
-  --core-channel: #619fff;
-  --core-side: #244784;
-  --core-back: #355b9c;
-  --core-top: #96beff;
-  --core-deep: #1b315a;
-  --core-glow: #a5cbff;
-  --signal-tint: #79b5ff;
-  --signal-backdrop: #1d3458;
+  --core-channel: #57cebd;
+  --core-side: #297970;
+  --core-back: #36938a;
+  --core-top: #89e1d2;
+  --core-deep: #184943;
+  --core-glow: #b6f4e8;
+  --signal-tint: #78dccc;
+  --signal-backdrop: #1b3e3c;
 }
 :root[data-active-signal="data"], .lab[data-channel="data"] {
-  --core-channel: #f7d354;
-  --core-side: #976922;
-  --core-back: #a97f30;
-  --core-top: #ffe797;
-  --core-deep: #584117;
-  --core-glow: #ffe580;
-  --signal-tint: #f4d46a;
-  --signal-backdrop: #43391f;
+  --core-channel: #ffad55;
+  --core-side: #a3632c;
+  --core-back: #b8793e;
+  --core-top: #ffc78d;
+  --core-deep: #623d21;
+  --core-glow: #ffd9ad;
+  --signal-tint: #ffbf7c;
+  --signal-backdrop: #473222;
 }
-:root[data-active-signal="connect"], .lab[data-channel="connect"] {
-  --core-channel: #e96c85;
-  --core-side: #8a3a59;
-  --core-back: #a44967;
-  --core-top: #ffa6bb;
-  --core-deep: #55273d;
-  --core-glow: #ffb6c7;
-  --signal-tint: #ee8ba0;
-  --signal-backdrop: #492538;
+:root[data-active-signal="both"], .lab[data-channel="both"] {
+  --core-channel: #f7e8ca;
+  --core-side: #9c8664;
+  --core-back: #b6a07f;
+  --core-top: #fff1d9;
+  --core-deep: #625138;
+  --core-glow: #fff4df;
+  --signal-tint: #efd8ac;
+  --signal-backdrop: #40392d;
 }
 
 .hero-lab { background: var(--paper); color: var(--ink); border-color: var(--paper); }

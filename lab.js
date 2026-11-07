@@ -1,7 +1,7 @@
 const signalChannels = {
   ai: { title: 'AI', target: 28, activity: 'AI Prototype Lab', destination: 'ai-prototype' },
   data: { title: 'Data Science', target: 54, activity: 'Data Playground', destination: 'data-playground' },
-  connect: { title: 'Community', target: 79, activity: 'Build Night', destination: 'build-night' },
+  both: { title: 'Both', target: 79, activity: 'AI & Data Science projects', destination: 'projects' },
 };
 const lab = document.querySelector('#signal-lab');
 const channelOptions = lab.querySelectorAll('input[name="signal-channel"]');

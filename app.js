@@ -153,10 +153,11 @@ choices.forEach((button) => button.addEventListener('click', () => {
 }));
 
 function openDashboardContent(id) {
-  const card = document.getElementById(id);
-  if (!card) return false;
-  showPanel(card.closest('.dash-panel').id);
-  card.querySelector('h3').focus();
+  const target = id ? document.getElementById(id) : null;
+  const panel = target?.closest('.dash-panel');
+  if (!panel) return false;
+  showPanel(panel.id);
+  target.querySelector(target === panel ? 'h2' : 'h3').focus();
   return true;
 }
 

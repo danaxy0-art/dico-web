@@ -106,7 +106,7 @@
               <legend>01 / SELECT CHANNEL</legend>
               <label><input type="radio" name="signal-channel" value="ai" checked><span>AI</span></label>
               <label><input type="radio" name="signal-channel" value="data"><span>Data Science</span></label>
-              <label><input type="radio" name="signal-channel" value="connect"><span>Community</span></label>
+              <label><input type="radio" name="signal-channel" value="both"><span>Both</span></label>
             </fieldset>
             <div class="lab-readout">
               <label for="frequency">02 / TUNE FREQUENCY</label>
@@ -185,7 +185,7 @@
     </section>
 
     <section class="dash-panel" id="projects" aria-labelledby="projects-title" hidden>
-      <h2 id="projects-title">Projects</h2>
+      <h2 id="projects-title" tabindex="-1">Projects</h2>
       <div class="dash-grid dash-grid-two">
         <article class="dash-card"><p class="dash-kicker">PROJECT 01 / WEB</p><h3>Interface Lab</h3><p>Build and share reusable interface components.</p><button class="dash-action" type="button" data-selection="project" data-choice-id="interface-lab" aria-label="Save project: Interface Lab" aria-pressed="false">Save project</button></article>
         <article class="dash-card" id="data-playground"><p class="dash-kicker">PROJECT 02 / DATA</p><h3 tabindex="-1">Data Playground</h3><p>Explore a sample dataset and turn it into a visual story.</p><button class="dash-action" type="button" data-selection="project" data-choice-id="data-playground" aria-label="Save project: Data Playground" aria-pressed="false">Save project</button></article>
@@ -214,9 +214,9 @@
           <p class="dash-kicker">02 / 54 HZ</p><h3>Data Science</h3><p>Data Playground</p><span class="signal-log-state">Not locked</span>
           <button class="interest-shortcut" type="button" data-signal-destination="data-playground" hidden>Open Data Playground <span aria-hidden="true">↗</span></button>
         </article>
-        <article class="dash-card signal-log" data-signal-log="connect">
-          <p class="dash-kicker">03 / 79 HZ</p><h3>Community</h3><p>Build Night</p><span class="signal-log-state">Not locked</span>
-          <button class="interest-shortcut" type="button" data-signal-destination="build-night" hidden>Open Build Night <span aria-hidden="true">↗</span></button>
+        <article class="dash-card signal-log" data-signal-log="both">
+          <p class="dash-kicker">03 / 79 HZ</p><h3>Both</h3><p>AI &amp; Data Science projects</p><span class="signal-log-state">Not locked</span>
+          <button class="interest-shortcut" type="button" data-signal-destination="projects" hidden>Open AI &amp; Data Science projects <span aria-hidden="true">↗</span></button>
         </article>
       </div>
     </section>
